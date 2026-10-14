@@ -1,0 +1,262 @@
+{
+  "date": "2026-10-14T13:02:05.873Z",
+  "checks": [
+    {
+      "name": "首页 320×568 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "beans 320×568 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "shops 320×568 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "recipes 320×568 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "mine 320×568 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "首页 390×844 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "beans 390×844 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "shops 390×844 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "recipes 390×844 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "mine 390×844 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "首页 412×915 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "beans 412×915 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "shops 412×915 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "recipes 412×915 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "mine 412×915 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "首页 844×390 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "beans 844×390 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "shops 844×390 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "recipes 844×390 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "mine 844×390 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "首页 768×1024 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "beans 768×1024 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "shops 768×1024 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "recipes 768×1024 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "mine 768×1024 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "首页 1440×900 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "beans 1440×900 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "shops 1440×900 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "recipes 1440×900 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "mine 1440×900 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "补记弹窗 320×568 内容不横向溢出",
+      "passed": true
+    },
+    {
+      "name": "时间滚轮 320×568 确认按钮可见",
+      "passed": true
+    },
+    {
+      "name": "补记弹窗 390×844 内容不横向溢出",
+      "passed": true
+    },
+    {
+      "name": "时间滚轮 390×844 确认按钮可见",
+      "passed": true
+    },
+    {
+      "name": "补记弹窗 844×390 内容不横向溢出",
+      "passed": true
+    },
+    {
+      "name": "时间滚轮 844×390 确认按钮可见",
+      "passed": true
+    },
+    {
+      "name": "必填校验保留表单",
+      "passed": true
+    },
+    {
+      "name": "自动计算水粉比",
+      "passed": true
+    },
+    {
+      "name": "滚轮选取 3:05",
+      "passed": true
+    },
+    {
+      "name": "修正输入后清除对应错误",
+      "passed": true
+    },
+    {
+      "name": "新杯子保存",
+      "passed": true
+    },
+    {
+      "name": "刷新后仍保存",
+      "passed": true
+    },
+    {
+      "name": "双列对比共同滚动",
+      "passed": true
+    },
+    {
+      "name": "对比窄屏无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "对比复盘关联豆子",
+      "passed": true
+    },
+    {
+      "name": "配方复用不复制实际用时和品尝评分",
+      "passed": true
+    },
+    {
+      "name": "未完成记录存草稿",
+      "passed": true
+    },
+    {
+      "name": "草稿恢复填写内容",
+      "passed": true
+    },
+    {
+      "name": "数字刻度按设置生成",
+      "passed": true
+    },
+    {
+      "name": "粒径对照卡数值",
+      "passed": true
+    },
+    {
+      "name": "旧研磨方式保留",
+      "passed": true
+    },
+    {
+      "name": "保存失败保留输入并显示错误",
+      "passed": true
+    },
+    {
+      "name": "失败后可以重试",
+      "passed": true
+    },
+    {
+      "name": "删除后恢复",
+      "passed": true
+    },
+    {
+      "name": "咖啡店品饮可保存，名称安全转义",
+      "passed": true
+    },
+    {
+      "name": "损坏资料没有被覆盖",
+      "passed": true
+    },
+    {
+      "name": "损坏资料阻止覆盖写入",
+      "passed": true
+    },
+    {
+      "name": "自包含 HTML 本地文件可直接打开",
+      "passed": true
+    },
+    {
+      "name": "店铺评分注入被拒绝且旧资料保留",
+      "passed": true
+    },
+    {
+      "name": "复盘日期注入被拒绝且旧资料保留",
+      "passed": true
+    },
+    {
+      "name": "品饮分段注入被拒绝且旧资料保留",
+      "passed": true
+    },
+    {
+      "name": "脚本策略禁止动态插入未授权脚本",
+      "passed": true
+    },
+    {
+      "name": "脚本策略禁止内联事件处理器",
+      "passed": true
+    },
+    {
+      "name": "没有浏览器脚本异常",
+      "passed": true
+    }
+  ],
+  "browserErrors": []
+}

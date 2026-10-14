@@ -1,0 +1,48 @@
+const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),assert=require('node:assert/strict'),{spawn}=require('node:child_process');
+const root=__dirname,html=path.resolve(root,'../../outputs/coffee-preview/index.html');
+const report=[],errors=[],pause=ms=>new Promise(r=>setTimeout(r,ms));let chrome,ws,cdp;
+const server=http.createServer((req,res)=>{res.setHeader('Content-Type','text/html; charset=utf-8');res.end(fs.readFileSync(html));});
+async function run(){
+ await new Promise(r=>server.listen(8040,'127.0.0.1',r));
+ chrome=spawn(process.env.COFFEE_CHROME_PATH||'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',['--headless=new','--disable-gpu','--disable-background-networking','--disable-crashpad-for-testing','--no-first-run','--remote-debugging-port=9225','--user-data-dir='+path.join(root,'qa-profile'),'about:blank'],{windowsHide:true,stdio:'ignore'});
+ let target;for(let i=0;i<50;i++){try{target=await(await fetch('http://127.0.0.1:9225/json/new?about:blank',{method:'PUT'})).json();break;}catch(e){await pause(100);}}if(!target)throw Error('Test browser unavailable');
+ ws=new WebSocket(target.webSocketDebuggerUrl);await new Promise((r,j)=>{ws.addEventListener('open',r,{once:true});ws.addEventListener('error',j,{once:true});});let seq=0;const requests=new Map();
+ ws.addEventListener('message',event=>{const m=JSON.parse(event.data);if(m.id){const p=requests.get(m.id);requests.delete(m.id);if(p){clearTimeout(p.timer);m.error?p.reject(Error(JSON.stringify(m.error))):p.resolve(m.result);}}if(m.method==='Runtime.exceptionThrown')errors.push(m.params.exceptionDetails.exception?.description||m.params.exceptionDetails.text);});
+ cdp=(method,params={})=>new Promise((resolve,reject)=>{const id=++seq,timer=setTimeout(()=>{requests.delete(id);reject(Error('Timed out: '+method));},10000);requests.set(id,{resolve,reject,timer});ws.send(JSON.stringify({id,method,params}));});
+ const ev=async expression=>{const r=await cdp('Runtime.evaluate',{expression,awaitPromise:true,returnByValue:true});if(r.exceptionDetails)throw Error(r.exceptionDetails.exception?.description||r.exceptionDetails.text);return r.result.value;};
+ const click=selector=>ev(`document.querySelector(${JSON.stringify(selector)}).click()`);
+ const fill=(selector,value)=>ev(`(()=>{let el=document.querySelector(${JSON.stringify(selector)});el.value=${JSON.stringify(value)};el.dispatchEvent(new Event('input',{bubbles:true}));el.dispatchEvent(new Event('change',{bubbles:true}));})()`);
+ const check=(name,result)=>{assert.ok(result,name);report.push(name);console.log('PASS',name);};
+ await cdp('Page.enable');await cdp('Runtime.enable');
+ await cdp('Page.addScriptToEvaluateOnNewDocument',{source:`window.nativeCalls=[];window.CoffeeAndroid={saveBackup:(data,name,mime)=>nativeCalls.push({method:'saveBackup',data,name,mime}),setAppearance:theme=>nativeCalls.push({method:'setAppearance',theme})};`});
+ await cdp('Page.navigate',{url:'http://127.0.0.1:8040'});for(let i=0;i<50;i++){await pause(50);if(await ev(`!!document.querySelector('.fab')`))break;}
+ await ev(`localStorage.clear();location.reload()`);await pause(250);
+ await cdp('Emulation.setDeviceMetricsOverride',{width:390,height:844,deviceScaleFactor:1,mobile:false});
+ check('安卓界面显示应用版本',await ev(`document.querySelector('.preview-badge').textContent==='0.1.1'`));
+ check('初始外观通知系统栏',await ev(`nativeCalls.some(c=>c.method==='setAppearance'&&c.theme==='light')`));
+ await click('[data-action=nav][data-page=mine]');await click('[data-action=theme]');
+ check('切换深色外观通知安卓',await ev(`nativeCalls.at(-1).theme==='dark'`));
+ await click('[data-action=export]');
+ check('备份交给系统保存接口且数据完整',await ev(`nativeCalls.at(-1).method==='saveBackup'&&JSON.parse(nativeCalls.at(-1).data).records.length===8&&nativeCalls.at(-1).mime==='application/json'`));
+ check('等待系统保存结果才报告成功',await ev(`!document.querySelector('#toast').textContent.includes('备份已')`));
+ await ev(`CoffeeNative.onExportResult(false,'已取消导出，记录仍在手机内。')`);
+ check('导出取消显示真实结果',await ev(`document.querySelector('#toast').textContent.includes('取消')`));
+ await ev(`CoffeeNative.onExportResult(true,'备份已保存到你选择的位置。')`);
+ check('导出成功回调',await ev(`document.querySelector('#toast').textContent.includes('已保存到')`));
+ check('返回键先回记录页',await ev(`CoffeeNative.handleBack()&&!!document.querySelector('.fab')`));
+ check('记录页返回键交还安卓处理',await ev(`CoffeeNative.handleBack()===false`));
+ await click('[data-action=new-record]');await fill('[name=beanId]','bean_1');await fill('[name=dose]','17');
+ check('切到后台自动保存未完成杯子',await ev(`CoffeeNative.onBackground()&&JSON.parse(localStorage.getItem(CoffeeCore.KEY)).drafts.length===1`));
+ await fill('[name=dose]','18');await ev('CoffeeNative.onBackground()');
+ check('重复后台保存更新同一份草稿',await ev(`(()=>{let s=JSON.parse(localStorage.getItem(CoffeeCore.KEY));return s.drafts.length===1&&s.drafts[0].dose===18&&document.querySelector('#sheet').open})()`));
+ await click('[data-action=time][data-target=duration]');await pause(70);check('系统返回只关闭时间滚轮',await ev(`CoffeeNative.handleBack()&&!document.querySelector('#wheel').open&&document.querySelector('#sheet').open`));
+ check('未保存编辑返回时保留确认',await ev(`CoffeeNative.handleBack()&&document.querySelector('#confirm').open`));
+ check('再次返回取消确认并保留表单',await ev(`CoffeeNative.handleBack()&&!document.querySelector('#confirm').open&&document.querySelector('[name=dose]').value==='18'`));
+ await fill('[name=water]','270');await click('[data-action=rating][data-value="5"]');await click('[data-action=time][data-target=duration]');await pause(60);await click('[data-action=wheel-value][data-col="0"][data-value="3"]');await click('[data-action=apply-wheel]');await click('[data-action=save-editor]');
+ check('正式保存后清理自动草稿',await ev(`(()=>{let s=JSON.parse(localStorage.getItem(CoffeeCore.KEY));return s.drafts.length===0&&s.records.some(r=>r.dose===18&&r.water===270)&&!document.querySelector('#sheet').open})()`));
+ check('桥接交互没有页面脚本异常',errors.length===0);
+ const out=path.resolve(root,'../../outputs/coffee-android');fs.mkdirSync(out,{recursive:true});fs.writeFileSync(path.join(out,'网页与安卓接口检查.json'),JSON.stringify({checks:report,errors,scope:'Browser tests with a simulated native interface; not an Android device test.'},null,2));
+ console.log('Bridge checks:',report.length);
+ await cdp('Browser.close').catch(()=>{});
+}
+run().catch(e=>{console.error(e);process.exitCode=1;}).finally(()=>{ws?.close();chrome?.kill();server.closeAllConnections();server.close();});

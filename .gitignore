@@ -1,0 +1,28 @@
+# Private signing material and local credentials
+**/signing/
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.pem
+*.key
+password.txt
+.env
+.env.*
+**/gh-auth/
+# Local tools, generated builds, and browser profiles
+**/toolchain/
+**/build/
+**/browser-profile*/
+**/qa-profile*/
+node_modules/
+outputs/
+*.log
+*.partial
+# User backups and platform/editor state
+*backup*.json
+*备份*.json
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
