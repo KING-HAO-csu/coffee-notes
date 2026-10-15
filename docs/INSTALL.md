@@ -1,6 +1,6 @@
 # 咖啡手记安装说明
 
-适用于 Android 8.0 及以上手机。安装文件为 `coffee-notes-0.1.1.apk`。
+适用于 Android 8.0 及以上手机。安装文件名包含对应版本号，例如 `coffee-notes-0.1.2.apk`；公开版本以 Releases 页面为准。
 
 ## 安装到手机
 

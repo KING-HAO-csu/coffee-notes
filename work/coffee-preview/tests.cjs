@@ -29,3 +29,9 @@ test('普通文字中的标点与合法未完成草稿仍可备份',()=>{
   s.drafts.push({id:'draft_valid',recordId:'cup_new',kind:'brew',date:C.today(),rating:0,dose:null,water:null,duration:null,stages:[{water:30,time:null}],grind:{mode:'turns',turns:1},flavors:[],editorExisting:false});
   assert.equal(C.validateState(s),'');assert.equal(C.validateState(C.clone(s)),'');
 });
+test('主题色支持旧备份、五种配色往返恢复，并拒绝未知或注入值',()=>{
+  const legacy=C.seed();delete legacy.settings.accent;assert.equal(C.validateState(legacy),'');
+  assert.equal(C.ACCENTS.length,5);
+  for(const accent of C.ACCENTS){for(const theme of ['light','dark']){const s=C.clone(legacy);s.settings.accent=accent.id;s.settings.theme=theme;let saved;assert.equal(C.write({setItem:(key,value)=>saved=value},s).ok,true);const restored=C.read({getItem:()=>saved});assert.equal(restored.blocked,undefined);assert.equal(restored.state.settings.accent,accent.id);assert.equal(restored.state.settings.theme,theme);assert.deepEqual(restored.state.records,legacy.records);}}
+  for(const invalid of ['unknown','"><img src=x>',{},null,1]){const s=C.clone(legacy);s.settings.accent=invalid;assert.notEqual(C.validateState(s),'');}
+});

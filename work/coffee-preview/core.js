@@ -1,6 +1,7 @@
 (function (root) {
   'use strict';
   const VERSION = 1;
+  const ACCENTS = [{id:'forest',name:'森林绿'},{id:'coffee',name:'咖啡棕'},{id:'cream',name:'奶油米'},{id:'blue',name:'雾霾蓝'},{id:'berry',name:'莓果紫'}];
   const KEY = 'coffee-notes-preview-v1';
   const ROASTS = ['浅烘', '中浅烘', '中烘', '中深烘', '深烘', '不清楚'];
   const FLAVORS = {
@@ -138,6 +139,7 @@
     }
     if(!s.settings || typeof s.settings!=='object'||Array.isArray(s.settings)) return '备份缺少设置';
     if(s.settings.theme!==undefined&&!['light','dark'].includes(s.settings.theme)) return '备份中的外观设置无效';
+    if(s.settings.accent!==undefined&&!ACCENTS.some(a=>a.id===s.settings.accent)) return '备份中的主题色无效';
     for(const [key,kind,collection] of [['grinderId','grinder',s.gear],['dripperId','dripper',s.gear],['waterId',null,s.waters]]) {
       const id=s.settings[key];
       if(!referenceId(id)) return '备份中的默认器具或水设置无效';
@@ -181,6 +183,6 @@
     try { const error=validateState(state); if(error) return {ok:false,message:error}; storage.setItem(KEY,JSON.stringify(state)); return {ok:true}; }
     catch(e) { return {ok:false,message:e?.name==='QuotaExceededError'?'保存空间不足。请先导出备份或减少图片，填写内容已保留。':'暂时无法保存到浏览器，填写内容已保留。请导出备份后重试。'}; }
   }
-  const API={VERSION,KEY,ROASTS,FLAVORS,TYPES,ORIGINS,METHODS,WATER_TYPES,clone,escape,uid,number,today,daysAgo,duration,ratio,validDate,active,sorted,byId,photo,validateRecord,validateConfig,levelOptions,grindLabel,reference,seed,validateState,read,write};
+  const API={VERSION,KEY,ACCENTS,ROASTS,FLAVORS,TYPES,ORIGINS,METHODS,WATER_TYPES,clone,escape,uid,number,today,daysAgo,duration,ratio,validDate,active,sorted,byId,photo,validateRecord,validateConfig,levelOptions,grindLabel,reference,seed,validateState,read,write};
   if(typeof module!=='undefined'&&module.exports) module.exports=API; else root.CoffeeCore=API;
 })(globalThis);

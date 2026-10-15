@@ -22,6 +22,45 @@ await click('[data-action=detail-record][data-id=brew_0]');await click('[data-ac
 await click('[data-action=nav][data-page=shops]');await click('[data-action=new-cafe][data-id=shop_1]');await fill('[name=name]','<img src=x onerror=alert(1)>');await click('[data-action=rating][data-value="5"]');await fill('[name=type]','澳白');await fill('[name=milk]','燕麦奶');await click('[data-action=save-editor]');await click('[data-action=nav][data-page=history]');check('咖啡店品饮可保存，名称安全转义',await ev(`document.querySelector('#app').textContent.includes('<img src=x onerror=alert(1)>')&&!document.querySelector('img[src=x]')`));
 await ev(`localStorage.setItem(CoffeeCore.KEY,'{broken');location.reload()`);await pause(200);check('损坏资料没有被覆盖',await ev(`localStorage.getItem(CoffeeCore.KEY)==='{broken'&&document.body.textContent.includes('原始资料已保留')`));await click('[data-action=new-record]');await click('[data-action=save-draft]');check('损坏资料阻止覆盖写入',await ev(`localStorage.getItem(CoffeeCore.KEY)==='{broken'&&document.querySelector('#sheet').open`));
 await ev(`localStorage.clear();location.reload()`);await pause(200);await cdp('Page.navigate',{url:require('node:url').pathToFileURL(path.join(out,'index.html')).href});await pause(250);check('自包含 HTML 本地文件可直接打开',await ev(`document.querySelector('.fab')!==null&&document.querySelectorAll('.card').length===8`));
+// Personalization checks use real DOM sizing, persistence and rendered colors.
+for(const width of [280,320,360,390,412,640,844,1440]){
+ await cdp('Emulation.setDeviceMetricsOverride',{width,height:844,deviceScaleFactor:1,mobile:false});
+ for(const [page,action] of [['beans','new-bean'],['shops','new-shop']]){
+  await click(`[data-action=nav][data-page=${page}]`);
+  check(`${page} ${width}px 新增按钮单行完整且可点击`,await ev(`(()=>{const b=document.querySelector('.topbar [data-action=${action}]'),s=b.querySelector('span'),r=document.createRange();r.selectNodeContents(s);const box=b.getBoundingClientRect();return r.getClientRects().length===1&&getComputedStyle(b).whiteSpace==='nowrap'&&box.height>=44&&box.right<=innerWidth&&box.left>=0&&b.scrollWidth<=b.clientWidth&&document.documentElement.scrollWidth<=innerWidth;})()`));
+  if(width===320)await shot(page==='beans'?'豆子-窄屏':'店铺-窄屏');
+  await click(`.topbar [data-action=${action}]`);check(`${page} ${width}px 新增入口正常打开`,await ev(`document.querySelector('#sheet').open&&!!document.querySelector('#sheet [name=name]')`));await click('[data-action=close-sheet]');
+ }
+}
+await cdp('Emulation.setDeviceMetricsOverride',{width:390,height:844,deviceScaleFactor:1,mobile:false});
+await click('[data-action=nav][data-page=mine]');await click('[data-action=appearance]');
+const paletteColors={light:new Set(),dark:new Set()};
+for(const mode of ['light','dark']){for(const accent of ['forest','coffee','cream','blue','berry']){
+ await click(`[data-action=set-mode][data-mode=${mode}]`);await click(`[data-action=set-accent][data-accent=${accent}]`);
+ check(`${mode}/${accent} 主题即时应用并保存`,await ev(`(()=>{const s=JSON.parse(localStorage.getItem(CoffeeCore.KEY));return s.settings.theme==='${mode}'&&s.settings.accent==='${accent}'&&document.body.dataset.accent==='${accent}'&&document.querySelector('.accent-option[aria-pressed=true]').dataset.accent==='${accent}'&&document.querySelector('#sheet .dialog-body').scrollWidth<=document.querySelector('#sheet .dialog-body').clientWidth;})()`));
+ const colors=await ev(`(()=>{const s=getComputedStyle(document.body);return Object.fromEntries(['primary','on-primary','text','bg','muted','tonal'].map(k=>[k,s.getPropertyValue('--'+k).trim()]));})()`);paletteColors[mode].add(colors.primary);
+ const luminance=hex=>{const raw=hex.slice(1),x=(raw.length===3?[...raw].map(c=>c+c).join(''):raw).match(/.{2}/g).map(n=>parseInt(n,16)/255).map(n=>n<=.04045?n/12.92:((n+.055)/1.055)**2.4);return .2126*x[0]+.7152*x[1]+.0722*x[2];};
+ const contrast=(a,b)=>{const x=luminance(a),y=luminance(b);return (Math.max(x,y)+.05)/(Math.min(x,y)+.05);};
+ check(`${mode}/${accent} 正文和操作文字对比度达 4.5`,[['text','bg'],['muted','bg'],['primary','tonal'],['on-primary','primary']].every(([a,b])=>contrast(colors[a],colors[b])>=4.5));
+ if(mode==='light'&&accent==='cream')await shot('主题设置-奶油米');if(mode==='dark'&&accent==='berry')await shot('主题设置-莓果紫深色');
+}}
+check('五种配色在浅色与深色下均有独立主色',paletteColors.light.size===5&&paletteColors.dark.size===5);
+for(const [width,height] of [[280,640],[320,568],[390,844],[844,390],[1440,900]]){
+ await cdp('Emulation.setDeviceMetricsOverride',{width,height,deviceScaleFactor:1,mobile:false});
+ check(`主题面板 ${width}×${height} 无溢出且完成按钮可见`,await ev(`(()=>{const body=document.querySelector('#sheet .dialog-body'),done=document.querySelector('#sheet .dialog-foot .btn').getBoundingClientRect();return body.scrollWidth<=body.clientWidth&&[...document.querySelectorAll('.accent-option')].every(b=>b.scrollWidth<=b.clientWidth)&&done.top>=0&&done.bottom<=innerHeight;})()`));
+ if(width===280)await shot('主题设置-窄屏');
+}
+await cdp('Emulation.setDeviceMetricsOverride',{width:390,height:844,deviceScaleFactor:1,mobile:false});
+await click('[data-action=close-sheet]');await ev('location.reload()');await pause(220);
+check('重开后保留配色与明暗模式',await ev(`document.body.dataset.accent==='berry'&&document.body.dataset.theme==='dark'`));
+await click('[data-action=nav][data-page=mine]');await click('[data-action=appearance]');
+await ev(`window.originalStorageWrite=Storage.prototype.setItem;Storage.prototype.setItem=function(){throw new DOMException('Full','QuotaExceededError');}`);
+await click('[data-action=set-accent][data-accent=blue]');
+check('保存失败保持原主题并提示，选择界面仍在',await ev(`document.body.dataset.accent==='berry'&&document.querySelector('#sheet').open&&document.querySelector('.save-error').textContent.includes('空间不足')`));
+await ev('Storage.prototype.setItem=window.originalStorageWrite');await click('[data-action=set-accent][data-accent=blue]');
+check('保存恢复后可重试主题切换',await ev(`document.body.dataset.accent==='blue'&&JSON.parse(localStorage.getItem(CoffeeCore.KEY)).settings.accent==='blue'`));
+await click('[data-action=close-sheet]');await ev(`const legacy=CoffeeCore.seed();delete legacy.settings.accent;localStorage.setItem(CoffeeCore.KEY,JSON.stringify(legacy));location.reload()`);await pause(200);
+check('旧备份未选主题色时默认森林绿',await ev(`document.body.dataset.accent==='forest'&&document.querySelectorAll('.card').length===8`));
 for(const [name,mutate] of [
  ['店铺评分注入',`s.shops[0].rating='"><img src=x onerror="window.injected=true">'`],
  ['复盘日期注入',`s.reviews.push({id:'review_attack',beanId:'bean_1',date:'<img src=x onerror="window.injected=true">'})`],

@@ -14,15 +14,17 @@ async function run(){
  const fill=(selector,value)=>ev(`(()=>{let el=document.querySelector(${JSON.stringify(selector)});el.value=${JSON.stringify(value)};el.dispatchEvent(new Event('input',{bubbles:true}));el.dispatchEvent(new Event('change',{bubbles:true}));})()`);
  const check=(name,result)=>{assert.ok(result,name);report.push(name);console.log('PASS',name);};
  await cdp('Page.enable');await cdp('Runtime.enable');
- await cdp('Page.addScriptToEvaluateOnNewDocument',{source:`window.nativeCalls=[];window.CoffeeAndroid={saveBackup:(data,name,mime)=>nativeCalls.push({method:'saveBackup',data,name,mime}),setAppearance:theme=>nativeCalls.push({method:'setAppearance',theme})};`});
+ await cdp('Page.addScriptToEvaluateOnNewDocument',{source:`window.nativeCalls=[];window.CoffeeAndroid={saveBackup:(data,name,mime)=>nativeCalls.push({method:'saveBackup',data,name,mime}),setAppearance:(theme,accent)=>nativeCalls.push({method:'setAppearance',theme,accent})};`});
  await cdp('Page.navigate',{url:'http://127.0.0.1:8040'});for(let i=0;i<50;i++){await pause(50);if(await ev(`!!document.querySelector('.fab')`))break;}
  await ev(`localStorage.clear();location.reload()`);await pause(250);
  await cdp('Emulation.setDeviceMetricsOverride',{width:390,height:844,deviceScaleFactor:1,mobile:false});
- check('安卓界面显示应用版本',await ev(`document.querySelector('.preview-badge').textContent==='0.1.1'`));
+ check('安卓界面显示应用版本',await ev(`document.querySelector('.preview-badge').textContent==='0.1.2'`));
  check('初始外观通知系统栏',await ev(`nativeCalls.some(c=>c.method==='setAppearance'&&c.theme==='light')`));
- await click('[data-action=nav][data-page=mine]');await click('[data-action=theme]');
+ await click('[data-action=nav][data-page=mine]');await click('[data-action=appearance]');await click('[data-action=set-mode][data-mode=dark]');
  check('切换深色外观通知安卓',await ev(`nativeCalls.at(-1).theme==='dark'`));
- await click('[data-action=export]');
+ await click('[data-action=set-accent][data-accent=coffee]');
+ check('切换主题色通知安卓系统栏',await ev(`nativeCalls.at(-1).theme==='dark'&&nativeCalls.at(-1).accent==='coffee'`));
+ await click('[data-action=close-sheet]');await click('[data-action=export]');
  check('备份交给系统保存接口且数据完整',await ev(`nativeCalls.at(-1).method==='saveBackup'&&JSON.parse(nativeCalls.at(-1).data).records.length===8&&nativeCalls.at(-1).mime==='application/json'`));
  check('等待系统保存结果才报告成功',await ev(`!document.querySelector('#toast').textContent.includes('备份已')`));
  await ev(`CoffeeNative.onExportResult(false,'已取消导出，记录仍在手机内。')`);

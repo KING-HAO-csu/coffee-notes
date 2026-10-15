@@ -23,15 +23,17 @@
 | 两杯对比 | 同款豆子的两次手冲双列共同滚动，突出参数差异，记录下次调整 |
 | 咖啡店 | 店铺、品饮记录、饮品类型、奶与其他配料、店家豆子信息 |
 | 日常管理 | 草稿、配方复用、筛选搜索、30 天内恢复删除、JSON 备份与恢复 |
-| 外观 | 安卓 Material 风格，适配手机和宽屏，浅色与深色模式 |
+| 外观 | 安卓 Material 风格，适配手机和宽屏，五种主题色与浅色、深色模式 |
 
-当前没有云同步、账号系统或自选主题主色。初次打开包含演示记录，可在「我的」中清除示例。
+在「我的 → 外观与主题色」中选择森林绿、咖啡棕、奶油米、雾霾蓝或莓果紫，选择后立即保存，备份也会保留外观设置。初次打开包含演示记录，可在「我的」中清除示例。当前没有云同步或账号系统。
+
+当前源码为 **0.1.2 开发版**：新增主题色选择，改善窄屏下「新豆子」「新店铺」按钮的单行显示。详见 [0.1.2 更新说明](docs/RELEASE-v0.1.2.md)。已公开的安装包仍以 Releases 页面为准。
 
 ## Android 使用
 
 支持 Android 8.0 及以上，需要可用的 Android System WebView。
 
-1. 从 [Releases](https://github.com/KING-HAO-csu/coffee-notes/releases) 下载 `coffee-notes-0.1.1.apk`。
+1. 从 [Releases](https://github.com/KING-HAO-csu/coffee-notes/releases) 下载对应版本的 APK。
 2. 传到手机，点开安装；系统询问时允许当前文件来源安装。
 3. 先试记一杯，再关闭、重开应用确认保存成功。
 
@@ -65,6 +67,8 @@ node work/coffee-android/build.cjs
 准备脚本从 Google 官方仓库下载固定版本的 Build Tools 35.0.0 和 Android 35 Platform，校验后解压。构建结果位于 `outputs/coffee-android/`。其他操作系统尚未提供构建脚本。
 
 首次构建会生成自己的签名密钥，保存在被 Git 忽略的 `work/coffee-android/signing/`。自行构建的 APK 与官方 Release 签名不同，不能直接覆盖官方版本。请私下备份自己的签名材料；更新应用需使用同一签名并递增版本。仓库和源码包不包含发布私钥。
+
+也可通过 `COFFEE_ANDROID_SIGNING` 指定已有签名目录，复用原签名构建更新包；该目录需包含本项目生成的密钥和密码文件，不能提交到仓库。
 
 ### 验证
 

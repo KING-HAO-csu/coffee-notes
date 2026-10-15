@@ -228,11 +228,15 @@ public final class MainActivity extends Activity {
                 });
             });
         }
-        @JavascriptInterface public void setAppearance(String theme) {
+        @JavascriptInterface public void setAppearance(String theme, String accent) {
             runOnUiThread(() -> {
                 if (destroyed) return;
                 boolean dark = "dark".equals(theme);
                 int color = dark ? Color.rgb(25, 30, 23) : Color.rgb(251, 250, 245);
+                if ("coffee".equals(accent)) color = Color.parseColor(dark ? "#211a16" : "#fff8f4");
+                else if ("cream".equals(accent)) color = Color.parseColor(dark ? "#211e15" : "#fffbf0");
+                else if ("blue".equals(accent)) color = Color.parseColor(dark ? "#171d24" : "#f7faff");
+                else if ("berry".equals(accent)) color = Color.parseColor(dark ? "#221a23" : "#fff8fc");
                 root.setBackgroundColor(color);
                 if (web != null) web.setBackgroundColor(color);
                 getWindow().setStatusBarColor(color);

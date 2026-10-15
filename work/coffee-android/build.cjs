@@ -11,9 +11,9 @@ const workspace = path.resolve(root, '../..');
 const output = path.join(workspace, 'outputs/coffee-android');
 const tools = process.env.COFFEE_ANDROID_TOOLS || path.join(root, 'toolchain');
 const runDir = path.join(root, 'build', new Date().toISOString().replace(/[:.]/g, '-'));
-const signing = path.join(root, 'signing');
-const version = '0.1.1';
-const versionCode = '2';
+const signing = process.env.COFFEE_ANDROID_SIGNING || path.join(root, 'signing');
+const version = '0.1.2';
+const versionCode = '3';
 const appName = '咖啡手记';
 
 function files(dir) {
