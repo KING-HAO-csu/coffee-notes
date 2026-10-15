@@ -2,7 +2,7 @@
 
 喝完了，记住这一杯。面向咖啡爱好者的离线手冲与咖啡店记录应用。
 
-[下载 Android 安装包](https://github.com/KING-HAO-csu/coffee-notes/releases) · [安装说明](docs/INSTALL.md) · [隐私说明](PRIVACY.md) · [安全审查记录](docs/SECURITY-REVIEW.md)
+[下载 Android 安装包](https://github.com/KING-HAO-csu/coffee-notes/releases/tag/v0.1.2) · [安装说明](docs/INSTALL.md) · [隐私说明](PRIVACY.md) · [安全审查记录](docs/SECURITY-REVIEW-v0.1.2.md)
 
 适合冲完、品尝之后快速补记：记录参数和感受，对比同一款豆子的不同冲法，把下次想调整的地方留下来。无需注册账号，日常使用无需联网。
 
@@ -11,6 +11,10 @@
 以下为网页预览截图，全部内容来自标记过的虚构示例数据。
 
 <img src="docs/images/home.png" width="300" alt="咖啡手记首页示例"> <img src="docs/images/compare.png" width="300" alt="同款豆子的双列对比示例">
+
+0.1.2 新增主题色选择，下面分别为奶油米浅色与莓果紫深色：
+
+<img src="docs/images/theme-light.png" width="280" alt="奶油米浅色主题设置"> <img src="docs/images/theme-dark.png" width="280" alt="莓果紫深色主题设置">
 
 ## 可以记录什么
 
@@ -27,19 +31,19 @@
 
 在「我的 → 外观与主题色」中选择森林绿、咖啡棕、奶油米、雾霾蓝或莓果紫，选择后立即保存，备份也会保留外观设置。初次打开包含演示记录，可在「我的」中清除示例。当前没有云同步或账号系统。
 
-当前源码为 **0.1.2 开发版**：新增主题色选择，改善窄屏下「新豆子」「新店铺」按钮的单行显示。详见 [0.1.2 更新说明](docs/RELEASE-v0.1.2.md)。已公开的安装包仍以 Releases 页面为准。
+当前版本 **0.1.2**：新增主题色选择，改善窄屏下「新豆子」「新店铺」按钮的单行显示。详见 [0.1.2 更新说明](docs/RELEASE-v0.1.2.md)。
 
 ## Android 使用
 
 支持 Android 8.0 及以上，需要可用的 Android System WebView。
 
-1. 从 [Releases](https://github.com/KING-HAO-csu/coffee-notes/releases) 下载对应版本的 APK。
+1. 从 [0.1.2 发布页](https://github.com/KING-HAO-csu/coffee-notes/releases/tag/v0.1.2) 下载 `coffee-notes-0.1.2.apk`。
 2. 传到手机，点开安装；系统询问时允许当前文件来源安装。
 3. 先试记一杯，再关闭、重开应用确认保存成功。
 
 数据保存在本机。网页与 APK 分别保存资料，迁移时在「我的」导出备份，再在另一端恢复。**卸载或清除应用数据前请先备份。** JSON 备份是明文，可能包含你填写的备注、地点、图片和价格，请妥善保管。
 
-0.1.1 加固了备份输入校验和网页脚本策略。当前完成了自动化验证，尚未完成真实安卓设备验收；照片选择、系统文件保存和各厂商返回手势仍需真机验证。
+0.1.2 沿用原有发布签名，可直接覆盖安装；旧数据未设置主题色时继续使用森林绿。当前完成 11 项核心数据、126 项网页与 17 项安卓接口模拟检查，尚未完成真实安卓设备验收；照片选择、系统文件保存、系统栏配色和各厂商返回手势仍需真机验证。
 
 ## 本地开发
 

@@ -1,0 +1,510 @@
+{
+  "date": "2026-10-15T11:47:33.855Z",
+  "checks": [
+    {
+      "name": "首页 320×568 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "beans 320×568 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "shops 320×568 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "recipes 320×568 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "mine 320×568 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "首页 390×844 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "beans 390×844 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "shops 390×844 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "recipes 390×844 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "mine 390×844 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "首页 412×915 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "beans 412×915 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "shops 412×915 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "recipes 412×915 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "mine 412×915 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "首页 844×390 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "beans 844×390 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "shops 844×390 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "recipes 844×390 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "mine 844×390 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "首页 768×1024 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "beans 768×1024 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "shops 768×1024 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "recipes 768×1024 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "mine 768×1024 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "首页 1440×900 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "beans 1440×900 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "shops 1440×900 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "recipes 1440×900 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "mine 1440×900 无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "补记弹窗 320×568 内容不横向溢出",
+      "passed": true
+    },
+    {
+      "name": "时间滚轮 320×568 确认按钮可见",
+      "passed": true
+    },
+    {
+      "name": "补记弹窗 390×844 内容不横向溢出",
+      "passed": true
+    },
+    {
+      "name": "时间滚轮 390×844 确认按钮可见",
+      "passed": true
+    },
+    {
+      "name": "补记弹窗 844×390 内容不横向溢出",
+      "passed": true
+    },
+    {
+      "name": "时间滚轮 844×390 确认按钮可见",
+      "passed": true
+    },
+    {
+      "name": "必填校验保留表单",
+      "passed": true
+    },
+    {
+      "name": "自动计算水粉比",
+      "passed": true
+    },
+    {
+      "name": "滚轮选取 3:05",
+      "passed": true
+    },
+    {
+      "name": "修正输入后清除对应错误",
+      "passed": true
+    },
+    {
+      "name": "新杯子保存",
+      "passed": true
+    },
+    {
+      "name": "刷新后仍保存",
+      "passed": true
+    },
+    {
+      "name": "双列对比共同滚动",
+      "passed": true
+    },
+    {
+      "name": "对比窄屏无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "对比复盘关联豆子",
+      "passed": true
+    },
+    {
+      "name": "配方复用不复制实际用时和品尝评分",
+      "passed": true
+    },
+    {
+      "name": "未完成记录存草稿",
+      "passed": true
+    },
+    {
+      "name": "草稿恢复填写内容",
+      "passed": true
+    },
+    {
+      "name": "数字刻度按设置生成",
+      "passed": true
+    },
+    {
+      "name": "粒径对照卡数值",
+      "passed": true
+    },
+    {
+      "name": "旧研磨方式保留",
+      "passed": true
+    },
+    {
+      "name": "保存失败保留输入并显示错误",
+      "passed": true
+    },
+    {
+      "name": "失败后可以重试",
+      "passed": true
+    },
+    {
+      "name": "删除后恢复",
+      "passed": true
+    },
+    {
+      "name": "咖啡店品饮可保存，名称安全转义",
+      "passed": true
+    },
+    {
+      "name": "损坏资料没有被覆盖",
+      "passed": true
+    },
+    {
+      "name": "损坏资料阻止覆盖写入",
+      "passed": true
+    },
+    {
+      "name": "自包含 HTML 本地文件可直接打开",
+      "passed": true
+    },
+    {
+      "name": "beans 280px 新增按钮单行完整且可点击",
+      "passed": true
+    },
+    {
+      "name": "beans 280px 新增入口正常打开",
+      "passed": true
+    },
+    {
+      "name": "shops 280px 新增按钮单行完整且可点击",
+      "passed": true
+    },
+    {
+      "name": "shops 280px 新增入口正常打开",
+      "passed": true
+    },
+    {
+      "name": "beans 320px 新增按钮单行完整且可点击",
+      "passed": true
+    },
+    {
+      "name": "beans 320px 新增入口正常打开",
+      "passed": true
+    },
+    {
+      "name": "shops 320px 新增按钮单行完整且可点击",
+      "passed": true
+    },
+    {
+      "name": "shops 320px 新增入口正常打开",
+      "passed": true
+    },
+    {
+      "name": "beans 360px 新增按钮单行完整且可点击",
+      "passed": true
+    },
+    {
+      "name": "beans 360px 新增入口正常打开",
+      "passed": true
+    },
+    {
+      "name": "shops 360px 新增按钮单行完整且可点击",
+      "passed": true
+    },
+    {
+      "name": "shops 360px 新增入口正常打开",
+      "passed": true
+    },
+    {
+      "name": "beans 390px 新增按钮单行完整且可点击",
+      "passed": true
+    },
+    {
+      "name": "beans 390px 新增入口正常打开",
+      "passed": true
+    },
+    {
+      "name": "shops 390px 新增按钮单行完整且可点击",
+      "passed": true
+    },
+    {
+      "name": "shops 390px 新增入口正常打开",
+      "passed": true
+    },
+    {
+      "name": "beans 412px 新增按钮单行完整且可点击",
+      "passed": true
+    },
+    {
+      "name": "beans 412px 新增入口正常打开",
+      "passed": true
+    },
+    {
+      "name": "shops 412px 新增按钮单行完整且可点击",
+      "passed": true
+    },
+    {
+      "name": "shops 412px 新增入口正常打开",
+      "passed": true
+    },
+    {
+      "name": "beans 640px 新增按钮单行完整且可点击",
+      "passed": true
+    },
+    {
+      "name": "beans 640px 新增入口正常打开",
+      "passed": true
+    },
+    {
+      "name": "shops 640px 新增按钮单行完整且可点击",
+      "passed": true
+    },
+    {
+      "name": "shops 640px 新增入口正常打开",
+      "passed": true
+    },
+    {
+      "name": "beans 844px 新增按钮单行完整且可点击",
+      "passed": true
+    },
+    {
+      "name": "beans 844px 新增入口正常打开",
+      "passed": true
+    },
+    {
+      "name": "shops 844px 新增按钮单行完整且可点击",
+      "passed": true
+    },
+    {
+      "name": "shops 844px 新增入口正常打开",
+      "passed": true
+    },
+    {
+      "name": "beans 1440px 新增按钮单行完整且可点击",
+      "passed": true
+    },
+    {
+      "name": "beans 1440px 新增入口正常打开",
+      "passed": true
+    },
+    {
+      "name": "shops 1440px 新增按钮单行完整且可点击",
+      "passed": true
+    },
+    {
+      "name": "shops 1440px 新增入口正常打开",
+      "passed": true
+    },
+    {
+      "name": "light/forest 主题即时应用并保存",
+      "passed": true
+    },
+    {
+      "name": "light/forest 正文和操作文字对比度达 4.5",
+      "passed": true
+    },
+    {
+      "name": "light/coffee 主题即时应用并保存",
+      "passed": true
+    },
+    {
+      "name": "light/coffee 正文和操作文字对比度达 4.5",
+      "passed": true
+    },
+    {
+      "name": "light/cream 主题即时应用并保存",
+      "passed": true
+    },
+    {
+      "name": "light/cream 正文和操作文字对比度达 4.5",
+      "passed": true
+    },
+    {
+      "name": "light/blue 主题即时应用并保存",
+      "passed": true
+    },
+    {
+      "name": "light/blue 正文和操作文字对比度达 4.5",
+      "passed": true
+    },
+    {
+      "name": "light/berry 主题即时应用并保存",
+      "passed": true
+    },
+    {
+      "name": "light/berry 正文和操作文字对比度达 4.5",
+      "passed": true
+    },
+    {
+      "name": "dark/forest 主题即时应用并保存",
+      "passed": true
+    },
+    {
+      "name": "dark/forest 正文和操作文字对比度达 4.5",
+      "passed": true
+    },
+    {
+      "name": "dark/coffee 主题即时应用并保存",
+      "passed": true
+    },
+    {
+      "name": "dark/coffee 正文和操作文字对比度达 4.5",
+      "passed": true
+    },
+    {
+      "name": "dark/cream 主题即时应用并保存",
+      "passed": true
+    },
+    {
+      "name": "dark/cream 正文和操作文字对比度达 4.5",
+      "passed": true
+    },
+    {
+      "name": "dark/blue 主题即时应用并保存",
+      "passed": true
+    },
+    {
+      "name": "dark/blue 正文和操作文字对比度达 4.5",
+      "passed": true
+    },
+    {
+      "name": "dark/berry 主题即时应用并保存",
+      "passed": true
+    },
+    {
+      "name": "dark/berry 正文和操作文字对比度达 4.5",
+      "passed": true
+    },
+    {
+      "name": "五种配色在浅色与深色下均有独立主色",
+      "passed": true
+    },
+    {
+      "name": "主题面板 280×640 无溢出且完成按钮可见",
+      "passed": true
+    },
+    {
+      "name": "主题面板 320×568 无溢出且完成按钮可见",
+      "passed": true
+    },
+    {
+      "name": "主题面板 390×844 无溢出且完成按钮可见",
+      "passed": true
+    },
+    {
+      "name": "主题面板 844×390 无溢出且完成按钮可见",
+      "passed": true
+    },
+    {
+      "name": "主题面板 1440×900 无溢出且完成按钮可见",
+      "passed": true
+    },
+    {
+      "name": "重开后保留配色与明暗模式",
+      "passed": true
+    },
+    {
+      "name": "保存失败保持原主题并提示，选择界面仍在",
+      "passed": true
+    },
+    {
+      "name": "保存恢复后可重试主题切换",
+      "passed": true
+    },
+    {
+      "name": "旧备份未选主题色时默认森林绿",
+      "passed": true
+    },
+    {
+      "name": "店铺评分注入被拒绝且旧资料保留",
+      "passed": true
+    },
+    {
+      "name": "复盘日期注入被拒绝且旧资料保留",
+      "passed": true
+    },
+    {
+      "name": "品饮分段注入被拒绝且旧资料保留",
+      "passed": true
+    },
+    {
+      "name": "脚本策略禁止动态插入未授权脚本",
+      "passed": true
+    },
+    {
+      "name": "脚本策略禁止内联事件处理器",
+      "passed": true
+    },
+    {
+      "name": "没有浏览器脚本异常",
+      "passed": true
+    }
+  ],
+  "browserErrors": []
+}
